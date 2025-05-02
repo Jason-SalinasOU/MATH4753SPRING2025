@@ -1,5 +1,5 @@
 
- #' computes the Total sum of squares
+ #' computes the Total sum of squares using a data set and a responce var
  #'
  #' @param data the data set
  #' @param response_var A Var in a data set

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Jason Salinas" />
+
+<meta name="date" content="2025-05-02" />
+
+<title>Introduction to MyPackage for 4753 Stats methods</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to MyPackage for 4753 Stats
+methods</h1>
+<h4 class="author">Jason Salinas</h4>
+<h4 class="date">2025-05-02</h4>
+
+
+
+<hr />
+<div id="introduction-and-infomation" class="section level2">
+<h2>IntroDuction and infomation</h2>
+<p>This is an R Markdown document And an Introduction for my Package.
+This was package was created across the semester and was used to
+complete labes and store methods that can be used for later, If the
+requirment would ever happent to show up. Furtheremore this package also
+contains the FIREDAM.CSV Data set along with documenation for Stats
+methods and the data set.</p>
+<p>There is about 8 methods, however, This document will only highlight
+4.</p>
+</div>
+<div id="computets.rd" class="section level2">
+<h2>computeTs.RD</h2>
+<p>This RD file computes The TSS (Total sum of squares)of Data set, and
+returns A numeric vector which represents the Total sum of squares.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>fire <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;FIREDAM.csv&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(MATH4753JASON)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">computeTS</span>(fire,<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 34.784</code></pre>
+</div>
+<div id="logbinomal" class="section level2">
+<h2>LOGBINOMAL</h2>
+<p>This method finds the Log-Likelihood Function for the Binomial
+Distribution and computes the log-likelihood for a binomial random
+variable with a fixed size of 10 and a given probability parameter.</p>
+<p>This also returns a Numeric vector containing log likehood values</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">logbin</span>(<span class="dv">10</span>,<span class="fl">0.5</span>)</span></code></pre></div>
+<pre><code>## [1] -6.931472</code></pre>
+</div>
+<div id="myncurve-function" class="section level2">
+<h2>myncurve function</h2>
+<p>My ncruve functions computes the area of curve, given three Params,
+the mean, SD or simga, and Doh the value up to which the area under the
+curve. the function returns the list of means and sigma that can
+used.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">myncurve</span>(<span class="at">mu =</span> <span class="dv">100</span>, <span class="at">sigma =</span> <span class="dv">15</span>, <span class="at">doh =</span> <span class="dv">120</span>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>## $mu
+## [1] 100
+## 
+## $sigma
+## [1] 15
+## 
+## $area
+## [1] 0.9088</code></pre>
+</div>
+<div id="hypergeo" class="section level2">
+<h2>Hypergeo</h2>
+<p>this function produces a HYPERGEOMETRIC simulation and simulates
+repeated samples from a hypergeometric distribution. Where N is the
+population size, where R is The number of success states in the
+population and where n is the sample size. This returns a barplot of
+values</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">myhyper</span>(<span class="at">iter =</span> <span class="dv">1000</span>,<span class="dv">50</span>,<span class="dv">20</span>,<span class="dv">10</span>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>## 
+##     0     1     2     3     4     5     6     7     8     9    10 
+## 0.004 0.028 0.106 0.231 0.272 0.227 0.094 0.035 0.003 0.000 0.000</code></pre>
+</div>
+<div id="data-set" class="section level2">
+<h2>DATA SET</h2>
+<p>The only data set that was used in this package was the FIREDAM
+Dataset, This included two vars which were FIRE DAMAGE in thousands, and
+their distance from the nearest fire station. This study is made up from
+15 random samples from a city.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">head</span>(fire)</span></code></pre></div>
+<pre><code>##   DISTANCE DAMAGE
+## 1      3.4   26.2
+## 2      1.8   17.8
+## 3      4.6   31.3
+## 4      2.3   23.1
+## 5      3.1   27.5
+## 6      5.5   36.0</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">summary</span>(fire)</span></code></pre></div>
+<pre><code>##     DISTANCE        DAMAGE     
+##  Min.   :0.70   Min.   :14.10  
+##  1st Qu.:2.20   1st Qu.:20.95  
+##  Median :3.10   Median :26.10  
+##  Mean   :3.28   Mean   :26.41  
+##  3rd Qu.:4.45   3rd Qu.:31.30  
+##  Max.   :6.10   Max.   :43.20</code></pre>
+</div>
+<div id="conclusion-of-package-introduction" class="section level2">
+<h2>Conclusion of Package introduction</h2>
+<p>This Package also contains more Methods like “Mycltb”and
+“myBoot”.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

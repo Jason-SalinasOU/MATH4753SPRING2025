@@ -2,7 +2,8 @@
 % Please edit documentation in R/Hypergeo.R
 \name{myhyper}
 \alias{myhyper}
-\title{computes}
+\title{function simulates the Hypergeometric distribution by,
+Drawing iter samples of size n without replacement from a population of size N that contains r successes.}
 \usage{
 myhyper(iter = 100, N = 20, r = 12, n = 5)
 }
@@ -19,5 +20,6 @@ myhyper(iter = 100, N = 20, r = 12, n = 5)
 barplot of the proportions hyper function
 }
 \description{
-computes
+function simulates the Hypergeometric distribution by,
+Drawing iter samples of size n without replacement from a population of size N that contains r successes.
 }

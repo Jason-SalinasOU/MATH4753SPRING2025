@@ -1,4 +1,4 @@
-#'
+#'My clytb
 #'
 #' @param n Sample size for each iteration.
 #' @param iter Number of iterations

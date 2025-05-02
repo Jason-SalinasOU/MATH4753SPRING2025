@@ -1,4 +1,5 @@
-#' computes
+#' function simulates the Hypergeometric distribution by,
+#' Drawing iter samples of size n without replacement from a population of size N that contains r successes.
 
 #'@param iter The number of iterations
 #' @param N  The population size

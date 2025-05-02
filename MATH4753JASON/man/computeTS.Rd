@@ -2,7 +2,7 @@
 % Please edit documentation in R/TSS.R
 \name{computeTS}
 \alias{computeTS}
-\title{computes the Total sum of squares}
+\title{computes the Total sum of squares using a data set and a responce var}
 \usage{
 computeTS(data, response_var)
 }
@@ -15,5 +15,5 @@ computeTS(data, response_var)
 A numeric vector which represents the Total sum of squares
 }
 \description{
-computes the Total sum of squares
+computes the Total sum of squares using a data set and a responce var
 }
